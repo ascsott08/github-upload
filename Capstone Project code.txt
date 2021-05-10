@@ -1,0 +1,42 @@
+/*Figure 2*/
+
+ods graphics / reset width=6.4in height=4.8in;
+
+proc sgmap plotdata=MIS480.'WATERPOINT.5'n;
+	openstreetmap;
+	title 'Mapped Water Points in Busia and Bungoma Counties';
+	scatter x=lon_deg y=lat_deg/ group=water_source_clean name="scatterPlot" 
+		markerattrs=(size=7 symbol=circle);
+	keylegend "scatterPlot"/ title='Mapped Water Sources';
+run;
+
+ods graphics / reset;
+title;
+
+/*Figure 3*/
+
+ods graphics / reset width=6.4in height=4.8in;
+
+proc sgmap plotdata=MIS480.'WATERPOINT.5UNPROTECTED'n;
+	openstreetmap;
+	title 'Unprotected Water Sources in Busia and Bungoma Counties';
+	scatter x=lon_deg y=lat_deg/ group=water_source_clean name="scatterPlot" 
+		markerattrs=(size=7 symbol=circle);
+	keylegend "scatterPlot"/ title='Mapped Water Sources';
+run;
+
+ods graphics / reset;
+title;
+
+
+/*Figure 4*/
+ods graphics / reset width=8in height=4.8in imagemap;
+
+proc sgplot data=MIS480.'SUrface_water.households1'n;
+	title height=18pt "Percentage of Households Accessing Surface Water by Sub-County";
+	vbar Sub_County / response=Household_Percent group=Source_Type;
+	xaxis display=(nolabel);
+	yaxis grid label="Percentage of Households";
+run;
+
+ods graphics / reset;
